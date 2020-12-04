@@ -28,9 +28,9 @@ class TestController extends AbstractController
         $formateur = "Yvon";
         $val = "Hello et bienvenue sur la super page de tests, on va s'éclater avec $formateur ;)";
         $title = "Bienvenue sur la page de test !";
-
+        $tab = ["toto \n", "tata\n"];
         return $this->render('test/test.html.twig', [
-            'val' => $val,
+            'tab' => $tab,
             'title' => $title
         ]);
         // return new Response ("<h1>Fonction test</h1>");
