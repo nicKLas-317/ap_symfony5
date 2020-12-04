@@ -15,8 +15,9 @@ class TestController extends AbstractController
     public function index(): Response
     {
         return $this->render('test/index.html.twig', [
-            'controller_name' => 'TestController',
         ]);
+
+      
     }
 
     /**
@@ -24,8 +25,14 @@ class TestController extends AbstractController
      */
     public function test(): Response
     {
+        $formateur = "Yvon";
+        $val = "Hello et bienvenue sur la super page de tests, on va s'éclater avec $formateur ;)";
+        $title = "Bienvenue sur la page de test !";
+
         return $this->render('test/test.html.twig', [
-            'controller_name' => 'TestController',
+            'val' => $val,
+            'title' => $title
         ]);
+        // return new Response ("<h1>Fonction test</h1>");
     }
 }
