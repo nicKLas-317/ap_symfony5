@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-
 use App\Entity\Category;
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\HttpFoundation\Request;
 
+use Doctrine\ORM\EntityManagerInterface;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,11 +21,11 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/add", name="ajoutProduct")
      */
-    public function addProduct(FormFactoryInterface $factory, Request $request){
+    public function addProduct(EntityManagerInterface $em, Request $request)
+    {
       
-        $product = new Product;
       
-        $builder =$factory->createBuilder();
+        $builder =$this->createFormBuilder();
         $builder->add('name', TextType::class)
             ->add('price', IntegerType::class)
             ->add('slug', TextType::class)
@@ -45,7 +44,23 @@ class ProductController extends AbstractController
 
 
             $form = $builder->getForm();
-       
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+                $data = $form->getData();
+                $product = new Product;
+                $product->setName($data['name'])
+                        ->setPrice($data['price'])
+                        ->setSlug($data['slug'])
+                        ->setCategory($data['category']);
+
+                $em->persist($product);
+                $em->flush();
+
+                return $this->redirectToRoute('success');
+
+            }
+
             return $this->render('product/index.html.twig', [
                 'form' => $form->createView(),
             ]);

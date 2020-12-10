@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\CategoryFormType;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -25,17 +28,18 @@ class CategoryController extends AbstractController
     /**
      * @Route("category/add", name= "ajoutCategorie")
      *
-
      */
-    public function addCategory(){
-        $em = $this->getDoctrine()->getManager();
-        
+    public function addCategory(EntityManagerInterface $em, Request $request){
         $category = new Category;
-        $category->setName('Xiaomi')->setDescription('Un autre fabricant de smartphones')->setSlug('xiaomi');
-
-        $em->persist($category);
-        $em->flush();
-       // dd('fait');
-        return $this->render('category/success.html.twig', []);
+        $form=  $this->createForm(CategoryFormType::class, $category);
+       
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('success');
+        }
+        
+        return $this->render('category/add.html.twig', ['form' => $form->createView()]);
     }
 }

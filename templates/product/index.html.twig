@@ -1,13 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %} Ajouter un Produit{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
+<div class="container">
+
+    {{ form_start(form)}}
+
+    {{ form_label(form.name,'Nom du produit') }}
+    {{ form_widget(form.name,{'attr':{'maxlength':'50'}}) }}
+
+    {{ form_label(form.price,'Prix du produit') }}
+    {{ form_widget(form.price,{'attr':{'maxlength':'50'}}) }}
+
+    {{ form_label(form.category,'Catégorie') }}
+    {{ form_widget(form.category)}}
+
+    {{ form_label(form.save,'Ajouter produit') }}
+    {{ form_widget(form.save) }}
+
+    {{ form_end(form, {'render_rest': false}) }}
 
 
-    {{form(form)}}
-
-    
 </div>
 {% endblock %}

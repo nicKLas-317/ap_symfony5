@@ -41,4 +41,13 @@ class TestController extends AbstractController
         ]);
         // return new Response ("<h1>Fonction test</h1>");
     }
+
+
+     /**
+     * @Route("/success", name="success")
+     */
+    public function success(): Response
+    {
+      return $this->render('success.html.twig', []);
+    }
 }
