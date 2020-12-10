@@ -1,26 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Ajouter un Produit{% endblock %}
+{% block title %}!{% endblock %}
 
 {% block body %}
 <div class="container">
-
-    {{ form_start(form)}}
-
-    {{ form_label(form.name,'Nom du produit') }}
-    {{ form_widget(form.name,{'attr':{'maxlength':'50'}}) }}
-
-    {{ form_label(form.price,'Prix du produit') }}
-    {{ form_widget(form.price,{'attr':{'maxlength':'50'}}) }}
-
-    {{ form_label(form.category,'Catégorie') }}
-    {{ form_widget(form.category)}}
-
-    {{ form_label(form.save,'Ajouter produit') }}
-    {{ form_widget(form.save) }}
-
-    {{ form_end(form, {'render_rest': false}) }}
-
-
+    <p>Nom du produit sélectionné : {{ produit.name}}</p>
+    <p>Prix : {{ produit.price}}</p>
+    <p>Slug : {{ produit.slug}}</p>
 </div>
 {% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Modifier un produit {% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+<div class="alert alert-success">
+    {{ message | raw}}
+</div>
+{% endfor %}
+
+<div class="container">
+    {{form(form)}}
+</div>
+
+
+{% endblock %}

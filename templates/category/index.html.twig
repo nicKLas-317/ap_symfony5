@@ -3,9 +3,30 @@
 {% block title %}Hello CategoryController!{% endblock %}
 
 {% block body %}
-<div class="example-wrapper">
-    {% for category in listeCategory %}
-        {{category.name}} // {{category.description}} <br />
-    {% endfor %}
+<div class="container">
+    <p><a href="{{path('produits')}}">Voir nos produits</a></p>
+    <p><a href="{{path('ajoutCategorie')}}">Créer une catégorie</a></p>
+
+    <br>
+
+    <table class="table">
+        <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Catégorie</th>
+            <th>Editer</th>
+            <th>Effacer</th>
+            {% for category in listeCategory %}
+        <tr>
+            <td> {{category.name}}</td>
+            <td> {{category.description}}</td>
+            <td> {{category.slug}}</td>
+            <td><a href="{{path('editCategorie', {'id':category.id})}}">Editer Catégorie</a></td>
+            <td><a href="{{path('deleteCategorie', {'id':category.id})}}">Supprimer Catégorie</a></td>
+        </tr>
+        <br />
+        {% endfor %}
+        </tr>
+    </table>
 </div>
 {% endblock %}

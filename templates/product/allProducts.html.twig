@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello, voici tous nos produits !{% endblock %}
+
+{% block body %}
+<div class="container">
+
+    <p><a href="{{path('ajoutProduct')}}">Ajouter un Produit</a></p>
+    <br>
+    <p><a href="{{path('categories')}}">Voir les catégories</a></p>
+    <table class="table">
+        <tr>
+            <th>Nom</th>
+            <th>Prix</th>
+            <th>Slug</th>
+            <th>Catégorie du produit</th>
+            <th>Editer</th>
+            <th>Supprimer le produit</th>
+            {% for product in products %}
+        <tr>
+            <td> {{product.name}}</td>
+            <td> {{product.price}}</td>
+            <td> {{product.slug}}</td>
+            <td> {{product.category}}</td>
+            <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
+            <td><a href="{{path('deleteProduct', {'id':product.id})}}">X</a></td> 
+        </tr>
+        <br />
+        {% endfor %}
+        </tr>
+    </table>
+</div>
+{% endblock %}
