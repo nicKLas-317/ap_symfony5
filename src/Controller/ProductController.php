@@ -12,8 +12,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\HttpKernel\KernelInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class ProductController extends AbstractController
 {
@@ -45,8 +47,9 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/add", name="ajoutProduct")
      */
-    public function addProduct(EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
+    public function addProduct(KernelInterface $appKernel, EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
     {  
+        $path = $appKernel->getProjectDir() . '/public/images';
         $product = new Product;
 
         $form = $this->createForm(ProductFormType::class, $product);
@@ -57,6 +60,24 @@ class ProductController extends AbstractController
                 // Génération du slug
                 $product->setSlug($slugger->slug($product->getName()));
 
+                // Traitement image
+                $file = $form['image']->getData();
+                if($file){
+                    // récup nom de fichier sans extension
+                    $origineFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+                    $newFileName = $origineFileName . '-' . uniqid() . '.' . $file->guessExtension();
+                    $product->setImage($newFileName);
+
+                    // Déplacer ds répertoire public/images
+                    try{
+                        $file->move(
+                            $path, $newFileName
+                        );
+                    }catch(FileException $e){
+                        echo $e->getMessage()();
+                    }
+                }
                 $em->persist($product);
                 $em->flush();
 
