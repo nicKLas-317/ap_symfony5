@@ -4,7 +4,11 @@
 
 {% block body %}
 <div class="container">
-
+    <div class="row">
+        <div class="col-6">
+            <button onClick="window.history.back();"  class="btn btn-warning" type="button">Retour</button>
+        </div>
+    </div>
     <p><a href="{{path('ajoutProduct')}}">Ajouter un Produit</a></p>
     <br>
     <p><a href="{{path('categories')}}">Voir les catégories</a></p>
@@ -12,18 +16,19 @@
         <tr>
             <th>Nom</th>
             <th>Prix</th>
+            <th>Catégorie</th>
             <th>Slug</th>
-            <th>Catégorie du produit</th>
+            
             <th>Editer</th>
             <th>Supprimer le produit</th>
             {% for product in products %}
         <tr>
-            <td> {{product.name}}</td>
+            <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a>
             <td> {{product.price}}</td>
-            <td> {{product.slug}}</td>
             <td> {{product.category}}</td>
+            <td> {{product.slug}}</td>
             <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
-            <td><a href="{{path('deleteProduct', {'id':product.id})}}">X</a></td> 
+            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><button type="button" class="btn btn-danger">X</button></a></td> 
         </tr>
         <br />
         {% endfor %}

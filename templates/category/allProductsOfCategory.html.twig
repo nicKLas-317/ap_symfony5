@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails d'une catégorie {% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <button onClick="window.history.back();"  class="btn btn-warning" type="button">Retour</button>
+        </div>
+    </div>
+    {% if listeProduits %}
+    <div class="row">
+        <h2>Voici la liste des produits pour {{category.name }}</h2>
+    </div>
+        <div class="row">
+        <table class="table">
+            <tr>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
+
+                {% for product in listeProduits %}
+            <tr>
+                <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a>
+                </td>
+                <td> {{product.price}}</td>
+                <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
+                <td><a href="{{path('deleteProduct', {'id':product.id})}}"><button type="button" class="btn btn-danger">X</button></a></td>
+
+            </tr>
+            <br />
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+    {% else %}
+    <div>
+        <p> {{category.name }} n'a pas de produits pour l'instant :(</p>
+        <p><a href="{{path('categories')}}">Voir les catégories</a></p>
+        <p><a href="{{path('produits')}}">Voir les produits</a></p>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

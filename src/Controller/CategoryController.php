@@ -100,14 +100,14 @@ class CategoryController extends AbstractController
      * 
      *  @Route("category/{id}/all", name= "showAllProducts")
     */
-    public function showAllProductsFromCategory (CategoryRepository $categoryRepository, ProductRepository $productRepository, EntityManagerInterface $em, Request $request, $id)
+    public function showAllProductsFromCategory (ProductRepository $productRepository, $id)
     {
-        // $listeProduits = $categoryRepository->findProductsByCategory($id);
+    //    Get all products of category
         $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
         $listeProduits = $productRepository->findBy(['category' => $category]);
 
 
-        return $this->render('category/allProducts.html.twig', [
+        return $this->render('category/allProductsOfCategory.html.twig', [
             'listeProduits' => $listeProduits,
             'category' =>  $category
         ]);
