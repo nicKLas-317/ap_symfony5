@@ -4,19 +4,14 @@
 <div class="container">
     <h1>En stock, nous avons</h1>
     <div class="row" style="border:1px solid black">
-      
            {% for item in products %}
            <div class="col" style="border:1px solid red">   
-              <p>{{item.name}}   ({{item.price}}€) de la catégorie  {#{{item.category}}  #}</p>   
-                <p>disponibles à cette URL là :  {{item.slug}}</p>
+              <p>{{item.name}}   ({{item.price}}€)</p> 
+              <img class="rounded mx-auto d-block" src="{{ item.image }}" style="max-width: 40%"alt="Card image cap">
+                <p>disponible ici: <a href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">{{item.name}}</a> </p>
             </div>
            {% endfor %}
-    
-       
-
-       
     </div>
-
 </div>
 
 {% endblock %}

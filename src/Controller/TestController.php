@@ -24,7 +24,7 @@ class TestController extends AbstractController
     }
 
     /**
-     * @Route("/test", name="test")
+     * @Route("/home", name="home")
      */
     public function test(ProductRepository $productRepository): Response
     {
@@ -35,7 +35,7 @@ class TestController extends AbstractController
         // dd($products);
        
 
-        return $this->render('test/test.html.twig', [
+        return $this->render('test/home.html.twig', [
             'products' => $products,
             // 'title' => $title
         ]);

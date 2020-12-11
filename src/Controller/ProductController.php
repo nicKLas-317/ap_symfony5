@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
@@ -44,14 +45,18 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/add", name="ajoutProduct")
      */
-    public function addProduct(EntityManagerInterface $em, Request $request)
+    public function addProduct(EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
     {  
         $product = new Product;
+
         $form = $this->createForm(ProductFormType::class, $product);
         $form->handleRequest($request);
-
-
+    
+           
             if($form->isSubmitted() && $form->isValid()){
+                // Génération du slug
+                $product->setSlug($slugger->slug($product->getName()));
+
                 $em->persist($product);
                 $em->flush();
 
@@ -67,7 +72,7 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/edit/{id}", name="editProduct")
      */
-    public function editProduct(EntityManagerInterface $em, Request $request, $id)
+    public function editProduct(EntityManagerInterface $em, SluggerInterface $slugger,Request $request, $id)
     {
     //    Get product with id
             $product = $em->getRepository(Product::class)->find($id);
@@ -77,6 +82,8 @@ class ProductController extends AbstractController
            
 
             if($form->isSubmitted() && $form->isValid()){
+                $product->setSlug($slugger->slug($product->getName()));
+
                 $em->persist($product);
                 $em->flush();
 
