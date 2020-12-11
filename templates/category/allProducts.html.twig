@@ -10,12 +10,6 @@
 
     <p>Voici la liste des produits pour {{category.name }}</p>
 
-
-
-
-
-
-
     <table class="table">
         <tr>
             <th>Nom</th>
@@ -25,7 +19,7 @@
 
             {% for product in listeProduits %}
         <tr>
-            <td><a href="{{path('detailProduit', {'id':product.id})}}">{{product.name}}</a></td>
+            <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a></td>
             <td> {{product.price}}</td>
             <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
             <td><a href="{{path('deleteProduct', {'id':product.id})}}">X</a></td> 

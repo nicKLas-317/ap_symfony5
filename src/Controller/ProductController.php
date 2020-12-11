@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Entity\Category;
+
 use App\Form\ProductFormType;
 use App\Repository\ProductRepository;
 
@@ -11,10 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProductController extends AbstractController
@@ -33,13 +30,12 @@ class ProductController extends AbstractController
     }
 
       /**
-     * @Route("/product/{id}", name="detailProduit")
+     * @Route("/product/{id}-{slug}", name="detailProduit")
      */
     public function detailProduct(EntityManagerInterface $em, $id): Response
     {
         $product = $em->getRepository(Product::class)->find($id);
-  
-        return $this->render('product/index.html.twig', [
+        return $this->render('product/productDetail.html.twig', [
             'product' => $product
         ]);
     }
@@ -81,13 +77,6 @@ class ProductController extends AbstractController
            
 
             if($form->isSubmitted() && $form->isValid()){
-                // $data = $form->getData();
-                // $product = new Product;
-                // $product->setName($data['name'])
-                //         ->setPrice($data['price'])
-                //         ->setSlug($data['slug'])
-                //         ->setCategory($data['category']);
-
                 $em->persist($product);
                 $em->flush();
 
@@ -103,7 +92,6 @@ class ProductController extends AbstractController
 
      /**
      * @Route("product/delete/{id}", name= "deleteProduct")
-     *
      */
     public function deleteProduct(EntityManagerInterface $em, ProductRepository $productRepository, $id)
     {
