@@ -15,6 +15,7 @@ class ProductFormType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
+            ->add('image')
             ->add('slug')
             ->add('category')
             ->add('save', SubmitType::class);

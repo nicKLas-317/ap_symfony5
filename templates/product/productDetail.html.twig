@@ -15,9 +15,24 @@
             <button onClick="window.history.back();"  class="btn btn-warning" type="button">Retour</button>
         </div>
     </div>
+
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="{{ product.image }}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title"> {{ product.name}}</h5>
+          <p class="card-text">{{ product.price}}</p>
+          <a href="#" class="btn btn-primary">Acheter t'as vu</a>
+        </div>
+      </div>
+
+
+
+
+
+
     {# {{ dump(product) }} #}
-    <p>Nom du produit sélectionné : {{ product.name}}</p>
+    {# <p>Nom du produit sélectionné : {{ product.name}}</p>
     <p>Prix : {{ product.price}}</p>
-    <p>Slug : {{ product.slug}}</p>
+    <p>Slug : {{ product.slug}}</p> #}
 </div>
 {% endblock %}

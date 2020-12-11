@@ -37,6 +37,11 @@ class Product
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +91,18 @@ class Product
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->Image;
+    }
+
+    public function setImage(?string $Image): self
+    {
+        $this->Image = $Image;
 
         return $this;
     }
