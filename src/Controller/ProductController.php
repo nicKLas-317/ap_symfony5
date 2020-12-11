@@ -49,7 +49,7 @@ class ProductController extends AbstractController
      */
     public function addProduct(KernelInterface $appKernel, EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
     {  
-        $path = $appKernel->getProjectDir() . '/public/images';
+        // $path = $appKernel->getProjectDir() . '/public/image';
         $product = new Product;
 
         $form = $this->createForm(ProductFormType::class, $product);
@@ -61,23 +61,23 @@ class ProductController extends AbstractController
                 $product->setSlug($slugger->slug($product->getName()));
 
                 // Traitement image
-                $file = $form['image']->getData();
-                if($file){
-                    // récup nom de fichier sans extension
-                    $origineFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+                // $file = $form['image']->getData();
+                // if($file){
+                //     // récup nom de fichier sans extension
+                //     $origineFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-                    $newFileName = $origineFileName . '-' . uniqid() . '.' . $file->guessExtension();
-                    $product->setImage($newFileName);
+                //     $newFileName = $origineFileName . '-' . uniqid() . '.' . $file->guessExtension();
+                //     $product->setImage($newFileName);
 
-                    // Déplacer ds répertoire public/images
-                    try{
-                        $file->move(
-                            $path, $newFileName
-                        );
-                    }catch(FileException $e){
-                        echo $e->getMessage()();
-                    }
-                }
+                //     // Déplacer ds répertoire public/images
+                //     try{
+                //         $file->move(
+                //             $path, $newFileName
+                //         );
+                //     }catch(FileException $e){
+                //         echo $e->getMessage()();
+                //     }
+                // }
                 $em->persist($product);
                 $em->flush();
 

@@ -17,25 +17,27 @@ class ProductFormType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('image', FileType::class, [
-                'required'   => false,
-                'label' => 'Image Produit',
-                'attr' => [
-                    'Placeholder img Produit'
-                ],
-                'constraints' => [
-                    new File([
-                        'maxSize' => '4096k',
-                        'mimeTypes' => [
-                            'image/jpeg',
-                            'image/png',
-                            'image/gif'
-                        ],
-                        'mimeTypesMessage' => 'Merci de charger une jpg/png',
-                        'uploadFormSizeErrorMessage' => 'Taille maximale de fichier 4 Méga'
-                    ])
-                ],
-            ])
+            ->add('image', 
+            // FileType::class,
+            //     [
+            //     'required'   => false,
+            //     'label' => 'Image Produit',
+            //     'attr' => [
+            //         'Placeholder img Produit'
+            //     ],
+            //     // 'constraints' => [
+            //     //     new File([
+            //     //         'maxSize' => '4096k',
+            //     //         'mimeTypes' => [
+            //     //             'image/jpeg',
+            //     //             'image/png'
+            //     //         ],
+            //     //         'mimeTypesMessage' => 'Merci de charger une jpg/png',
+            //     //         'uploadFormSizeErrorMessage' => 'Taille maximale de fichier 4 Méga'
+            //     //     ])
+            //     // ],
+            // ]
+            )
             // ->add('slug')
             ->add('category')
             ->add('save', SubmitType::class);
