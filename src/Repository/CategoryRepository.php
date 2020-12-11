@@ -20,21 +20,23 @@ class CategoryRepository extends ServiceEntityRepository
     }
 
     // /**
-    //  * @return Category[] Returns an array of Category objects
+    //  * @return Category[] Returns an array of ALL Products
     //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    
+    // public function findProductsByCategory($value)
+    // {
+    //     // SQL : SELECT C.name,P.name,price,P.slug FROM `product` P INNER JOIN category C on P.category_id = C.id AND C.name = "Smartphones" 
+
+    //     return $this->createQueryBuilder('c')
+    //         ->andWhere('c.id = :val')
+    //         ->setParameter('val', $value)
+    //         // ->orderBy('c.id', 'ASC')
+    //         ->setMaxResults(10)
+    //         ->getQuery()
+    //         ->getResult()
+    //     ;
+    // }
+    
 
     /*
     public function findOneBySomeField($value): ?Category

@@ -4,29 +4,37 @@
 
 {% block body %}
 <div class="container">
-    <p><a href="{{path('produits')}}">Voir nos produits</a></p>
-    <p><a href="{{path('ajoutCategorie')}}">Créer une catégorie</a></p>
+    <div class="row">
+        <div class="col-6">
+            <p><a href="{{path('produits')}}">Voir nos produits</a></p>
+        </div>
+        <div class="col-6">
+            <p><a href="{{path('ajoutCategorie')}}">Créer une catégorie</a></p>
+        </div>
+        <br>
+        <table class="table">
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Catégorie</th>
+                <th>Editer</th>
+                <th>Effacer</th>
+                <th>Tous les produits</th>
+                {% for category in listeCategory %}
+            <tr>
+                <td> {{category.name}}</td>
+                <td> {{category.description}}</td>
+                <td> {{category.slug}}</td>
+                <td><a href="{{path('editCategorie', {'id':category.id})}}">Editer Catégorie</a></td>
+                <td><a href="{{path('deleteCategorie', {'id':category.id})}}">Supprimer Catégorie</a></td>
+                <td>Voir tous les produits de <a
+                        href="{{path('showAllProducts', {'id':category.id})}}">{{category.name}}</a></td>
 
-    <br>
-
-    <table class="table">
-        <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Catégorie</th>
-            <th>Editer</th>
-            <th>Effacer</th>
-            {% for category in listeCategory %}
-        <tr>
-            <td> {{category.name}}</td>
-            <td> {{category.description}}</td>
-            <td> {{category.slug}}</td>
-            <td><a href="{{path('editCategorie', {'id':category.id})}}">Editer Catégorie</a></td>
-            <td><a href="{{path('deleteCategorie', {'id':category.id})}}">Supprimer Catégorie</a></td>
-        </tr>
-        <br />
-        {% endfor %}
-        </tr>
-    </table>
+            </tr>
+            <br />
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
 </div>
 {% endblock %}

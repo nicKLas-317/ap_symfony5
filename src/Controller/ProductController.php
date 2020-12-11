@@ -32,6 +32,19 @@ class ProductController extends AbstractController
         ]);
     }
 
+      /**
+     * @Route("/product/{id}", name="detailProduit")
+     */
+    public function detailProduct(EntityManagerInterface $em, $id): Response
+    {
+        $product = $em->getRepository(Product::class)->find($id);
+  
+        return $this->render('product/index.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+
     /**
      * @Route("/product/add", name="ajoutProduct")
      */

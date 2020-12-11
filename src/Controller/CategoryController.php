@@ -95,6 +95,22 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    
+    /**
+     * 
+     *  @Route("category/{id}/all", name= "showAllProducts")
+    */
+    public function showAllProductsFromCategory (CategoryRepository $categoryRepository, ProductRepository $productRepository, EntityManagerInterface $em, Request $request, $id)
+    {
+        // $listeProduits = $categoryRepository->findProductsByCategory($id);
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($id);
+        $listeProduits = $productRepository->findBy(['category' => $category]);
 
+
+        return $this->render('category/allProducts.html.twig', [
+            'listeProduits' => $listeProduits,
+            'category' =>  $category
+        ]);
+    }
   
 }
