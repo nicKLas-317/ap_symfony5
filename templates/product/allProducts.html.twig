@@ -6,12 +6,17 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <button onClick="window.history.back();"  class="btn btn-warning" type="button">Retour</button>
+            <button onClick="window.history.back();" class="btn btn-warning" type="button">Retour</button>
         </div>
     </div>
-    <p><a href="{{path('ajoutProduct')}}">Ajouter un Produit</a></p>
-    <br>
-    <p><a href="{{path('categories')}}">Voir les catégories</a></p>
+    <div class="row">
+        <div class="col-6">
+            <p><a href="{{path('ajoutProduct')}}">Ajouter un Produit</a></p>
+        </div>
+        <div class="col-6">
+            <p><a href="{{path('categories')}}">Voir les catégories</a></p>
+        </div>
+    </div>
     <table class="table">
         <tr>
             <th>Nom</th>
@@ -19,7 +24,7 @@
             <th>Catégorie</th>
             <th style="text-align: center;">Image</th>
             <th>Slug</th>
-            
+
             <th>Editer</th>
             <th>Supprimer le produit</th>
             {% for product in products %}
@@ -27,10 +32,12 @@
             <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a></td>
             <td> {{product.price}}</td>
             <td> {{product.category}}</td>
-            <td>  <img class="rounded mx-auto d-block" src="images/{{ product.image }}" style="max-width: 15%"alt="Card image cap"></td>
+            <td> <img class="rounded mx-auto d-block" src="images/{{ product.image }}" style="max-width: 15%"
+                    alt="Card image cap"></td>
             <td> {{product.slug}}</td>
             <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
-            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><button type="button" class="btn btn-danger">X</button></a></td> 
+            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><button type="button"
+                        class="btn btn-danger">X</button></a></td>
         </tr>
         <br />
         {% endfor %}

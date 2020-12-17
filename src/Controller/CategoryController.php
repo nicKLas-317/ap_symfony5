@@ -40,7 +40,7 @@ class CategoryController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($category);
             $em->flush();
-            // $message = $this->addFlash('success', 'Bien enregistré ;)');
+            $this->addFlash('success', 'Catégorie bien ajoutée ;)');
             return $this->redirectToRoute('categories');
         }
         
@@ -61,7 +61,7 @@ class CategoryController extends AbstractController
         $em->remove($category);
         $em->flush();
         $listeCategory = $categoryRepository->findAll();
-    // $message = $this->addFlash('success', 'Bien enregistré ;)');
+        $this->addFlash('success', 'Catégorie supprimée avec succès ;)');
         return $this->render('category/index.html.twig', [
             'listeCategory' => $listeCategory,
         ]);
@@ -84,7 +84,7 @@ class CategoryController extends AbstractController
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($category);
             $em->flush();
-            // $message = $this->addFlash('success', 'Bien enregistré ;)');
+            $this->addFlash('success', 'Bien enregistré ;)');
             // var_dump($message);
             return $this->redirectToRoute('categories');
         }

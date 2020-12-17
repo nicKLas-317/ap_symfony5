@@ -15,7 +15,7 @@
 
          <img class="rounded mx-auto d-block" src="images/{{ item.image }}" style="max-width: 40%" alt="{{item.name}}">
 
-         <p>disponible ici: <a href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">{{item.name}}</a>
+         <p> <a href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">disponible ici !</a>
          </p>
       </div>
       {% endfor %}

@@ -38,6 +38,8 @@ class ProductController extends AbstractController
     public function detailProduct(EntityManagerInterface $em, $id): Response
     {
         $product = $em->getRepository(Product::class)->find($id);
+
+        // dd($product);
         return $this->render('product/productDetail.html.twig', [
             'product' => $product
         ]);
@@ -49,7 +51,7 @@ class ProductController extends AbstractController
      */
     public function addProduct(KernelInterface $appKernel, EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
     {  
-        // $path = $appKernel->getProjectDir() . '/public/image';
+        // $path = $appKernel->getProjectDir() . '/public/images';
         $product = new Product;
 
         $form = $this->createForm(ProductFormType::class, $product);
@@ -62,6 +64,7 @@ class ProductController extends AbstractController
 
                 // Traitement image
                 // $file = $form['image']->getData();
+
                 // if($file){
                 //     // récup nom de fichier sans extension
                 //     $origineFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
@@ -80,7 +83,8 @@ class ProductController extends AbstractController
                 // }
                 $em->persist($product);
                 $em->flush();
-
+                $this->addFlash('success', 'Le produit a bien été créé ;)');
+                
                 return $this->redirectToRoute('produits');
 
             }
@@ -107,7 +111,7 @@ class ProductController extends AbstractController
 
                 $em->persist($product);
                 $em->flush();
-
+                $this->addFlash('success', 'Modifications bien enregistrées ;)');
                 return $this->redirectToRoute('produits');
 
             }
@@ -127,6 +131,8 @@ class ProductController extends AbstractController
   
         $em->remove($product);
         $em->flush();
+        $this->addFlash('success', 'Le produit a bien été supprimé ;)');
+
     
         return $this->redirectToRoute('produits');
       
