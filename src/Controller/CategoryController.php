@@ -28,7 +28,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("category/add", name= "ajoutCategorie")
+     * @Route("/admin/category/add", name= "ajoutCategorie")
      *
      */
     public function addCategory(EntityManagerInterface $em, Request $request)
@@ -51,7 +51,7 @@ class CategoryController extends AbstractController
 
 
      /**
-     * @Route("category/delete/{id}", name= "deleteCategorie")
+     * @Route("/admin/category/delete/{id}", name= "deleteCategorie")
      *
      */
     public function deleteCategory(EntityManagerInterface $em, CategoryRepository $categoryRepository,  $id)
@@ -70,7 +70,7 @@ class CategoryController extends AbstractController
 
 
     /**
-     * @Route("category/edit/{id}", name= "editCategorie")
+     * @Route("/admin/category/edit/{id}", name= "editCategorie")
      *
      */
     public function editCategory(EntityManagerInterface $em, Request $request, $id)
@@ -97,7 +97,7 @@ class CategoryController extends AbstractController
     
     /**
      * 
-     *  @Route("category/{id}/all", name= "showAllProducts")
+     *  @Route("/admin/category/{id}/all", name= "showAllProducts")
     */
     public function showAllProductsFromCategory (ProductRepository $productRepository, $id)
     {

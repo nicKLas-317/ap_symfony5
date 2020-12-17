@@ -32,7 +32,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-      /**
+    /**
      * @Route("/product/{id}-{slug}", name="detailProduit")
      */
     public function detailProduct(EntityManagerInterface $em, $id): Response
@@ -45,7 +45,7 @@ class ProductController extends AbstractController
 
 
     /**
-     * @Route("/product/add", name="ajoutProduct")
+     * @Route("/admin/product/add", name="ajoutProduct")
      */
     public function addProduct(KernelInterface $appKernel, EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
     {  
@@ -91,7 +91,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/product/edit/{id}", name="editProduct")
+     * @Route("/admin/product/edit/{id}", name="editProduct")
      */
     public function editProduct(EntityManagerInterface $em, SluggerInterface $slugger,Request $request, $id)
     {
@@ -119,7 +119,7 @@ class ProductController extends AbstractController
 
 
      /**
-     * @Route("product/delete/{id}", name= "deleteProduct")
+     * @Route("/admin/product/delete/{id}", name= "deleteProduct")
      */
     public function deleteProduct(EntityManagerInterface $em, ProductRepository $productRepository, $id)
     {

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+         <h2>Dans notre belle boutique, nous avons : </h2> <br>
+      </div>
+   </div>
+
+   <div class="row">
+      {% for item in products %}
+      <div class="col-4" style="border:1px solid red">
+         <p>{{item.name}} ({{item.price}}€)</p>
+
+         <img class="rounded mx-auto d-block" src="images/{{ item.image }}" style="max-width: 40%" alt="{{item.name}}">
+
+         <p>disponible ici: <a href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">{{item.name}}</a>
+         </p>
+      </div>
+      {% endfor %}
+   </div>
+</div>
+
+{% endblock %}
