@@ -10,9 +10,11 @@
         </div>
     </div>
     <div class="row">
+        {% if is_granted('ROLE_ADMIN') %}
         <div class="col-6">
             <p><a href="{{path('ajoutProduct')}}">Ajouter un Produit</a></p>
         </div>
+        {% endif %}
         <div class="col-6">
             <p><a href="{{path('categories')}}">Voir les catégories</a></p>
         </div>
@@ -23,10 +25,11 @@
             <th>Prix</th>
             <th>Catégorie</th>
             <th style="text-align: center;">Image</th>
+            {% if is_granted('ROLE_ADMIN') %}
             <th>Slug</th>
-
             <th>Editer</th>
             <th>Supprimer le produit</th>
+            {% endif %}
             {% for product in products %}
         <tr>
             <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a></td>
@@ -34,10 +37,12 @@
             <td> {{product.category}}</td>
             <td> <img class="rounded mx-auto d-block" src="images/{{ product.image }}" style="max-width: 15%"
                     alt="Card image cap"></td>
+            {% if is_granted('ROLE_ADMIN') %}
             <td> {{product.slug}}</td>
             <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
             <td><a href="{{path('deleteProduct', {'id':product.id})}}"><button type="button"
                         class="btn btn-danger">X</button></a></td>
+            {% endif %}
         </tr>
         <br />
         {% endfor %}

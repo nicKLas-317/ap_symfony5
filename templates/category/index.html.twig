@@ -6,38 +6,49 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <button onClick="window.history.back();"  class="btn btn-warning" type="button">Retour</button>
+            <button onClick="window.history.back();" class="btn btn-warning" type="button">Retour</button>
         </div>
-       </div>
+    </div>
     <div class="row">
         <div class="col-6">
             <p><a href="{{path('produits')}}">Voir nos produits</a></p>
         </div>
+        {% if (app.user and app.user.email == 'admin@admin.com') %}
         <div class="col-6">
             <p><a href="{{path('ajoutCategorie')}}">Créer une catégorie</a></p>
         </div>
         <br>
+        {% endif %}
         <table class="table">
             <tr>
                 <th>Nom</th>
                 <th>Description</th>
+                {% if is_granted('ROLE_ADMIN') %}
                 <th>Catégorie</th>
                 <th>Editer</th>
                 <th>Effacer</th>
+
                 <th>Tous les produits</th>
+                {% endif %}
                 {% for category in listeCategory %}
             <tr>
                 <td> {{category.name}}</td>
                 <td> {{category.description}}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+
                 <td> {{category.slug}}</td>
+
                 <td><a href="{{path('editCategorie', {'id':category.id})}}">Editer Catégorie</a></td>
                 <td><a href="{{path('deleteCategorie', {'id':category.id})}}">Supprimer Catégorie</a></td>
+
                 <td>Voir tous les produits de <a
                         href="{{path('showAllProducts', {'id':category.id})}}">{{category.name}}</a></td>
-
+                {% endif %}
+          
             </tr>
             <br />
             {% endfor %}
+
             </tr>
         </table>
     </div>

@@ -25,6 +25,7 @@
                 <th>Supprimer</th>
 
                 {% for product in listeProduits %}
+                
             <tr>
                 <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a>
                 </td>
