@@ -90,11 +90,76 @@ class ProductController extends AbstractController
             $this->addFlash('success', 'Produit ajouté avec succès');
 
             return $this->redirectToRoute('produits', ['id' => $idCategory]);
+           
         }
 
         return $this->render('product/add.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+
+    /**
+     * @Route("/admin/product/edit/{id}", name="editProduct")
+     */
+    public function editProduct(KernelInterface $appKernel, Request $request, EntityManagerInterface $em, $id): Response
+    {
+        // $path = $this->getParameter('app.dir.public') . '/img';
+        $path = $appKernel->getProjectDir() . '/public/images';
+
+        $product = $em->getRepository(Product::class)->find($id);
+        $form = $this->createForm(ProductFormType::class, $product);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $product = $form->getData();
+
+            $file = $form['img']->getData();
+            if ($file) {
+                // récup nom de fichier sans extension
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                // set nom dans la propriété Img
+                $product->setImage($newFilename);
+
+                //Déplacer le fichier dans le répertoire public + sous répertoire
+                try {
+                    $file->move($path, $newFilename);
+                } catch (FileException $e) {
+                    echo $e->getMessage();
+                }
+            }
+
+
+
+            $em->persist($product);
+            $em->flush();
+            $this->addFlash('success', 'Modification bien prise en compte');
+            return $this->redirectToRoute('produits');
+        }
+
+        return $this->render('product/edit.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/admin/product/delete/{id}", name= "deleteProduct")
+     */
+    public function deleteProduct(EntityManagerInterface $em, ProductRepository $productRepository, $id)
+    {
+         // REstrictions admin
+         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $product = $em->getRepository(Product::class)->find($id);
+
+        $em->remove($product);
+        $em->flush();
+        $this->addFlash('success', 'Le produit a bien été supprimé ;)');
+
+
+        return $this->redirectToRoute('produits');
     }
     /**
      * @Route("/admin/product/add", name="ajoutProduct")
@@ -176,62 +241,5 @@ class ProductController extends AbstractController
     //     ]);
     // }
 
-    public function editProduct(KernelInterface $appKernel, Request $request, EntityManagerInterface $em, $id): Response
-    {
-        // $path = $this->getParameter('app.dir.public') . '/img';
-        $path = $appKernel->getProjectDir() . '/public/images';
-
-        $product = $em->getRepository(Product::class)->find($id);
-        $form = $this->createForm(ProductFormType::class, $product);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $product = $form->getData();
-
-            $file = $form['img']->getData();
-            if ($file) {
-                // récup nom de fichier sans extension
-                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-
-                $newFilename = $originalFilename . '-' . uniqid() . '.' . $file->guessExtension();
-                // set nom dans la propriété Img
-                $product->setImage($newFilename);
-
-                //Déplacer le fichier dans le répertoire public + sous répertoire
-                try {
-                    $file->move($path, $newFilename);
-                } catch (FileException $e) {
-                    echo $e->getMessage();
-                }
-            }
-
-
-
-            $em->persist($product);
-            $em->flush();
-            return $this->redirectToRoute('success');
-        }
-
-        return $this->render('product/edit.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/admin/product/delete/{id}", name= "deleteProduct")
-     */
-    public function deleteProduct(EntityManagerInterface $em, ProductRepository $productRepository, $id)
-    {
-         // REstrictions admin
-         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $product = $em->getRepository(Product::class)->find($id);
-
-        $em->remove($product);
-        $em->flush();
-        $this->addFlash('success', 'Le produit a bien été supprimé ;)');
-
-
-        return $this->redirectToRoute('produits');
-    }
+  
 }
