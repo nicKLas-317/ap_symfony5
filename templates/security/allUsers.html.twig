@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello, voici tous nos users !{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <button onClick="window.history.back();" class="btn btn-warning" type="button">Retour</button>
+        </div>
+    </div>
+     {% if is_granted('ROLE_ADMIN') %}
+    <table class="table">
+        <tr>
+            <th>Nom</th>
+            
+          
+           
+        
+          
+            {% for user in users %}
+        <tr>
+            <td> {{user.email}}</td>
+            {# <td> {{product.category}}</td> #}
+                 
+            {# {% if is_granted('ROLE_ADMIN') %} #}
+          
+            {# {% endif %} #}
+        </tr>
+        <br />
+        {% endfor %}
+        </tr>
+    </table>
+      {% endif %}
+</div>
+{% endblock %}

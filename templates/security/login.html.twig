@@ -40,9 +40,20 @@
                 #}
             <br> <br>
                 <button class="btn btn-lg btn-primary" type="submit">
-                    Sign in
+                   Se connecter
                 </button>
+              
             </form>
+            
+          
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-4">
+            {% if not app.user %}
+            <button class="btn btn-lg btn-success"><a href="{{ path('app_register') }}" style="color: black; text-decoration: none">Créer un compte</a>   </button>
+            {% endif %}
         </div>
     </div>
 </div>

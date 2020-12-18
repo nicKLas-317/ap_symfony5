@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,5 +34,23 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+
+    /**
+    * @Route("/admin/userlist", name="userList")
+    */
+    public function userList(UserRepository $userRepository)
+    {
+         // REstrictions admin
+         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        // get all users
+        $users =  $userRepository->findAll();
+   // display users
+        return $this->render('security/allUsers.html.twig', [
+            'users' => $users
+        ]);
+
+     
     }
 }
