@@ -14,29 +14,31 @@
         </div>
         {% endif %}
     </div>
-    <div class="row">
+    <div class="row" style="padding-top: 15px;">
         <h2>Utilisateurs</h2>
         <table class="table">
             <tr>
                 <th>ID</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Rôle</th>
                 <th>Editer</th>
-                <th>Supprimer user</th>
+                <th style="text-align: center;">Supprimer user</th>
     
                 {% for user in users %}
             
 
             <tr>
                 <td> {{user.id}}</td>
+                <td>Ano Nymous</td>
                 <td> {{user.email}}</td>
                 {% if 'ROLE_ADMIN' in user.roles  %}
                     <td>Admin</td>
                 {% else %}
                     <td>User</td>
                 {% endif %} 
-                <td><a href="{{path('editUser', {'id':user.id})}}">Modifier User</a></td>
-                <td><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
+                <td><a href="{{path('editUser', {'id':user.id})}}" >Modifier User</a></td>
+                <td style="text-align: center;"><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
                             class="btn btn-danger">X</button></a></td>
     
     
