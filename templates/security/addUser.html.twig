@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Modifier un user {% endblock %}
+{% block title %} Ajouter un user {% endblock %}
 
 {% block body %}
 
@@ -29,7 +29,7 @@
     {{ form_label(form.password,'Password') }}
     {{ form_widget(form.password)}}
 
-    {{ form_label(form.save,'Sauvegarder user') }}
+    {{ form_label(form.save,'Ajouter user') }}
     {{ form_widget(form.save) }}
 
     {{ form_end(form, {'render_rest': false}) }}
