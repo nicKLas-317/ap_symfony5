@@ -8,41 +8,45 @@
         <div class="col-6">
             <button onClick="window.history.back();" class="btn btn-warning" type="button">Retour</button>
         </div>
-    </div>
-    <div class="row">
         {% if is_granted('ROLE_ADMIN') %}
         <div class="col-6">
-            <p><a href="{{path('ajoutUser')}}">Ajouter un User</a></p>
+            <button class="btn btn-success" type="button"> <a href="{{path('ajoutUser')}}">Ajouter un User</a> </button>
         </div>
         {% endif %}
     </div>
-    <h2>Utilisateurs</h2>
+    <div class="row">
+        <h2>Utilisateurs</h2>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Rôle</th>
+                <th>Editer</th>
+                <th>Supprimer user</th>
+    
+                {% for user in users %}
+            
 
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Email</th>
-            <th>Rôle</th>
-           
-            <th>Editer</th>
-            <th>Supprimer user</th>
-
-            {% for user in users %}
-        <tr>
-            <td> {{user.id}}</td>
-            <td> {{user.email}}</td>
-
-            <td>  ??? </td>
-            <td><a href="{{path('editUser', {'id':user.id})}}">Editer User</a></td>
-            <td><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
-                        class="btn btn-danger">X</button></a></td>
-
-
-        </tr>
-        <br />
-        {% endfor %}
-        </tr>
-    </table>
+            <tr>
+                <td> {{user.id}}</td>
+                <td> {{user.email}}</td>
+                {% if 'ROLE_ADMIN' in user.roles  %}
+                    <td>Admin</td>
+                {% else %}
+                    <td>User</td>
+                {% endif %} 
+                <td><a href="{{path('editUser', {'id':user.id})}}">Modifier User</a></td>
+                <td><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
+                            class="btn btn-danger">X</button></a></td>
+    
+    
+            </tr>
+            <br />
+            {% endfor %}
+            </tr>
+        </table>
+    </div>
+  
 
 </div>
 {% endblock %}
