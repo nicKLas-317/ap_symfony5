@@ -49,7 +49,7 @@ class AdminUserController extends AbstractController
             );
             $em->persist($user);
             $em->flush();
-            $this->addFlash('success', 'Le user a bien été créé ;)');
+            $this->addFlash('success', 'User bien créé ;)');
 
             return $this->redirectToRoute('userList');
         }
@@ -67,16 +67,11 @@ class AdminUserController extends AbstractController
 
         //    Get user with id
         $user = $em->getRepository(User::class)->find($id);
-        // if(in_array('ROLE_ADMIN', $user->getRoles())){
-        //     $this->addFlash('warning', 'Êtes-vous certain de vouloir modifier cet user ?');
-        //     return $this->redirectToRoute('userList');
-        // }
         $form = $this->createForm(UserFormType::class, $user);
         $form->handleRequest($request);
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,

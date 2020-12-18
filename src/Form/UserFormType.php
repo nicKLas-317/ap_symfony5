@@ -21,7 +21,7 @@ class UserFormType extends AbstractType
             ->add('roles', ChoiceType::class, array(
                 'attr'  =>  array(
                     'class' => 'form-control',
-                    'style' => 'margin:5px 0;'
+                    'style' => 'margin:5px 0;',
                 ),
                 'choices' =>
                 array(
@@ -32,12 +32,10 @@ class UserFormType extends AbstractType
                 'required' => true
             ))
             ->add('password', PasswordType::class, [
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
                 'mapped' => false,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Please enter a password',
+                        'message' => 'Aucun mot de passe',
                     ]),
                     new Length([
                         'min' => 6,
@@ -47,7 +45,7 @@ class UserFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('save', SubmitType::class);;
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)
