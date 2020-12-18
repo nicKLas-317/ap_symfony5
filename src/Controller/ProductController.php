@@ -45,87 +45,178 @@ class ProductController extends AbstractController
         ]);
     }
 
-
-    /**
-     * @Route("/admin/product/add", name="ajoutProduct")
+/**
+     * @Route("/product/add",name="ajoutProduct")
      */
-    public function addProduct(KernelInterface $appKernel, EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
+    public function addProduct(KernelInterface $appKernel, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
-        // REstrictions admin
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $path = $appKernel->getProjectDir() . '/public/images';
 
-        // $path = $appKernel->getProjectDir() . '/public/images';
+        // $path = $this->getParameter('app.dir.public') . '/images';
+       
         $product = new Product;
-
         $form = $this->createForm(ProductFormType::class, $product);
+
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            // Génération du slug
+
             $product->setSlug($slugger->slug($product->getName()));
 
-            // Traitement image
-            // $file = $form['image']->getData();
+            $file = $form['img']->getData();
+            $idCategory = $form['category']->getData()->getId();
+            //dd($idCategory);
 
-            // if($file){
-            //     // récup nom de fichier sans extension
-            //     $origineFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-            //     $newFileName = $origineFileName . '-' . uniqid() . '.' . $file->guessExtension();
-            //     $product->setImage($newFileName);
+            if ($file) {
+                // récup nom de fichier sans extension
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
 
-            //     // Déplacer ds répertoire public/images
-            //     try{
-            //         $file->move(
-            //             $path, $newFileName
-            //         );
-            //     }catch(FileException $e){
-            //         echo $e->getMessage()();
-            //     }
-            // }
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                // set nom dans la propriété Img
+                $product->setImage($newFilename);
+
+                //Déplacer le fichier dans le répertoire public + sous répertoire
+                try {
+                    $file->move($path, $newFilename);
+                } catch (FileException $e) {
+                    echo $e->getMessage();
+                }
+            }
+
             $em->persist($product);
             $em->flush();
-            $this->addFlash('success', 'Le produit a bien été créé ;)');
 
-            return $this->redirectToRoute('produits');
+            $this->addFlash('success', 'Produit ajouté avec succès');
+
+            return $this->redirectToRoute('produits', ['id' => $idCategory]);
         }
 
-        return $this->render('product/product-form.html.twig', [
+        return $this->render('product/add.html.twig', [
             'form' => $form->createView(),
         ]);
     }
+    /**
+     * @Route("/admin/product/add", name="ajoutProduct")
+     */
+    // public function addProduct(KernelInterface $appKernel, EntityManagerInterface $em, SluggerInterface $slugger, Request $request)
+    // {
+    //     // REstrictions admin
+    //     $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+    //     // $path = $appKernel->getProjectDir() . '/public/images';
+    //     $product = new Product;
+
+    //     $form = $this->createForm(ProductFormType::class, $product);
+    //     $form->handleRequest($request);
+
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         // Génération du slug
+    //         $product->setSlug($slugger->slug($product->getName()));
+
+    //         // Traitement image
+    //         // $file = $form['image']->getData();
+
+    //         // if($file){
+    //         //     // récup nom de fichier sans extension
+    //         //     $origineFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+    //         //     $newFileName = $origineFileName . '-' . uniqid() . '.' . $file->guessExtension();
+    //         //     $product->setImage($newFileName);
+
+    //         //     // Déplacer ds répertoire public/images
+    //         //     try{
+    //         //         $file->move(
+    //         //             $path, $newFileName
+    //         //         );
+    //         //     }catch(FileException $e){
+    //         //         echo $e->getMessage()();
+    //         //     }
+    //         // }
+    //         $em->persist($product);
+    //         $em->flush();
+    //         $this->addFlash('success', 'Le produit a bien été créé ;)');
+
+    //         return $this->redirectToRoute('produits');
+    //     }
+
+    //     return $this->render('product/product-form.html.twig', [
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
 
     /**
      * @Route("/admin/product/edit/{id}", name="editProduct")
      */
-    public function editProduct(EntityManagerInterface $em, SluggerInterface $slugger, Request $request, $id)
+    // public function editProduct(EntityManagerInterface $em, SluggerInterface $slugger, Request $request, $id)
+    // {
+
+    //      // REstrictions admin
+    //      $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+    //     //    Get product with id
+    //     $product = $em->getRepository(Product::class)->find($id);
+
+    //     $form = $this->createForm(ProductFormType::class, $product);
+    //     $form->handleRequest($request);
+
+
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         $product->setSlug($slugger->slug($product->getName()));
+
+    //         $em->persist($product);
+    //         $em->flush();
+    //         $this->addFlash('success', 'Modifications bien enregistrées ;)');
+    //         return $this->redirectToRoute('produits');
+    //     }
+
+    //     return $this->render('product/edit.html.twig', [
+    //         'form' => $form->createView(),
+    //     ]);
+    // }
+
+    public function editProduct(KernelInterface $appKernel, Request $request, EntityManagerInterface $em, $id): Response
     {
+        // $path = $this->getParameter('app.dir.public') . '/img';
+        $path = $appKernel->getProjectDir() . '/public/images';
 
-         // REstrictions admin
-         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-
-        //    Get product with id
         $product = $em->getRepository(Product::class)->find($id);
-
         $form = $this->createForm(ProductFormType::class, $product);
+
         $form->handleRequest($request);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $product->setSlug($slugger->slug($product->getName()));
+            $product = $form->getData();
+
+            $file = $form['img']->getData();
+            if ($file) {
+                // récup nom de fichier sans extension
+                $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
+
+                $newFilename = $originalFilename . '-' . uniqid() . '.' . $file->guessExtension();
+                // set nom dans la propriété Img
+                $product->setImage($newFilename);
+
+                //Déplacer le fichier dans le répertoire public + sous répertoire
+                try {
+                    $file->move($path, $newFilename);
+                } catch (FileException $e) {
+                    echo $e->getMessage();
+                }
+            }
+
+
 
             $em->persist($product);
             $em->flush();
-            $this->addFlash('success', 'Modifications bien enregistrées ;)');
-            return $this->redirectToRoute('produits');
+            return $this->redirectToRoute('success');
         }
 
         return $this->render('product/edit.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
 
     /**
      * @Route("/admin/product/delete/{id}", name= "deleteProduct")
