@@ -19,25 +19,18 @@ class UserFormType extends AbstractType
         $builder
             ->add('email')
             ->add('roles', ChoiceType::class, array(
-                'attr'  =>  array('class' => 'form-control',
-                'style' => 'margin:5px 0;'),
-                'choices' => 
-                array
-                (
-                    'ROLE_ADMIN' => array
-                    (
-                        'Yes' => 'ROLE_ADMIN',
-                    ),
-                    'ROLE_USER' => array
-                    (
-                        'Yes' => 'ROLE_USER'
-                    ),
-                ) 
-                ,
+                'attr'  =>  array(
+                    'class' => 'form-control',
+                    'style' => 'margin:5px 0;'
+                ),
+                'choices' =>
+                array(
+                    'ADMIN' => 'ROLE_ADMIN',
+                    'USER' => 'ROLE_USER'
+                ),
                 'multiple' => true,
-                'required' => true,
-                )
-            )
+                'required' => true
+            ))
             ->add('password', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -54,8 +47,7 @@ class UserFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('save', SubmitType::class);
-        ;
+            ->add('save', SubmitType::class);;
     }
 
     public function configureOptions(OptionsResolver $resolver)

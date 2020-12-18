@@ -22,11 +22,11 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Rôle</th>
-                <th>Editer</th>
+                <th style="text-align: center;">Editer</th>
                 <th style="text-align: center;">Supprimer user</th>
-    
+
                 {% for user in users %}
-            
+
 
             <tr>
                 <td> {{user.id}}</td>
@@ -37,18 +37,17 @@
                 {% else %}
                     <td>User</td>
                 {% endif %} 
-                <td><a href="{{path('editUser', {'id':user.id})}}" >Modifier User</a></td>
+                <td style="text-align: center;"><a href="{{path('editUser', {'id':user.id})}}"><img style="width: 10%;"
+                            src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
                 <td style="text-align: center;"><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
                             class="btn btn-danger">X</button></a></td>
-    
-    
             </tr>
             <br />
             {% endfor %}
             </tr>
         </table>
     </div>
-  
+
 
 </div>
 {% endblock %}
