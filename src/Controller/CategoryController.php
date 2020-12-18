@@ -61,7 +61,7 @@ class CategoryController extends AbstractController
     public function deleteCategory(EntityManagerInterface $em, CategoryRepository $categoryRepository,  $id)
     {
         $category = $em->getRepository(Category::class)->find($id);
-  
+    
         $em->remove($category);
         $em->flush();
         $listeCategory = $categoryRepository->findAll();
