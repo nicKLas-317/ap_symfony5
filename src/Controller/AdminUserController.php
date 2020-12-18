@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserFormType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +22,7 @@ class AdminUserController extends AbstractController
         // get all users
         $users =  $userRepository->findAll();
         // display users
-        return $this->render('security/allUsers.html.twig', [
+        return $this->render('user/allUsers.html.twig', [
             'users' => $users
         ]);
     }
@@ -53,7 +54,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('userList');
         }
 
-        return $this->render('security/addUser.html.twig', [
+        return $this->render('user/addUser.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -85,7 +86,7 @@ class AdminUserController extends AbstractController
             return $this->redirectToRoute('userList');
         }
 
-        return $this->render('security/editUser.html.twig', [
+        return $this->render('user/editUser.html.twig', [
             'form' => $form->createView(),
         ]);
     }
