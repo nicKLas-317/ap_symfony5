@@ -9,28 +9,40 @@
             <button onClick="window.history.back();" class="btn btn-warning" type="button">Retour</button>
         </div>
     </div>
-     {% if is_granted('ROLE_ADMIN') %}
+    <div class="row">
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="col-6">
+            <p><a href="{{path('ajoutUser')}}">Ajouter un User</a></p>
+        </div>
+        {% endif %}
+    </div>
+    <h2>Utilisateurs</h2>
+
     <table class="table">
         <tr>
-            <th>Nom</th>
-            
-          
-           
-        
-          
+            <th>ID</th>
+            <th>Email</th>
+
+            {# 
+            <th>Editer</th> #}
+            <th>Supprimer user</th>
+
             {% for user in users %}
         <tr>
+            <td> {{user.id}}</td>
             <td> {{user.email}}</td>
-            {# <td> {{product.category}}</td> #}
-                 
-            {# {% if is_granted('ROLE_ADMIN') %} #}
-          
-            {# {% endif %} #}
+
+
+            {# <td><a href="{{path('editUser', {'id':user.id})}}">Editer User</a></td> #}
+            <td><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
+                        class="btn btn-danger">X</button></a></td>
+
+
         </tr>
         <br />
         {% endfor %}
         </tr>
     </table>
-      {% endif %}
+
 </div>
 {% endblock %}
