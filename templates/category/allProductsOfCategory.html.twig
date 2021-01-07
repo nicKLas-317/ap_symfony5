@@ -30,10 +30,11 @@
                 <td><a href="{{path('detailProduit', {'id':product.id, 'slug':product.slug}) }}">{{product.name}}</a>
                 </td>
                 <td> {{product.price}}</td>
-                <td>  <img class="rounded mx-auto d-block" src="{{ product.image }}" style="max-width: 15%"alt="Card image cap"></td>
-                <td><a href="{{path('editProduct', {'id':product.id})}}">Editer Produit</a></td>
-                <td><a href="{{path('deleteProduct', {'id':product.id})}}"><img style="width: 25%;"
+                <td>  <img class="rounded mx-auto d-block" src="{{ product.image }}" style="max-width: 15%"alt="No image"></td>
+                <td><a href="{{path('editProduct', {'id':product.id})}}"><img style="width: 13%;"
                     src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
+                <td><a href="{{path('deleteProduct', {'id':product.id})}}"><img style="width: 6%;"
+                    src="https://icon-library.com/images/delete-icon-image/delete-icon-image-15.jpg" alt=""></a></td>
 
             </tr>
             <br />

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Product;
 use App\Entity\Category;
+use App\Form\DataTransformer\CentimeTransformer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -52,7 +53,10 @@ class ProductFormType extends AbstractType
                     'label' => 'Catégorie',
                 ]
             )
-            ->add('save', SubmitType::class);;
+            ->add('save', SubmitType::class);
+
+
+            $builder->get('price')->addModelTransformer(new CentimeTransformer);
     }
 
     public function configureOptions(OptionsResolver $resolver)

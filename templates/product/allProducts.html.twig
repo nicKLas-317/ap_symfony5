@@ -36,13 +36,13 @@
             <td> {{product.price}}</td>
             <td> {{product.category}}</td>
             <td> <img class="rounded mx-auto d-block" src="images/{{ product.image }}" style="max-width: 15%"
-                    alt="Card image cap"></td>
+                    alt="No image"></td>
             {% if is_granted('ROLE_STAFF') %}
 
             <td> {{product.slug}}</td>
-            <td><a href="{{path('editProduct', {'id':product.id})}}"><img style="width: 25%;"
+            <td><a href="{{path('editProduct', {'id':product.id})}}"><img style="width: 23%;"
                         src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
-            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><img style="width: 13%;"
+            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><img style="width: 11%;"
                 src="https://icon-library.com/images/delete-icon-image/delete-icon-image-15.jpg" alt=""></a></td>
             {% endif %}
         </tr>
