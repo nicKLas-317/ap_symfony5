@@ -35,7 +35,7 @@ class Category
     private $slug;
 
     /**
-     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
+     * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category", cascade={"remove"}, orphanRemoval=true)
      */
     private $products;
 

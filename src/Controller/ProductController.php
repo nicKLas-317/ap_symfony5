@@ -151,7 +151,7 @@ class ProductController extends AbstractController
     public function deleteProduct(EntityManagerInterface $em, ProductRepository $productRepository, $id)
     {
          // REstrictions admin
-         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+         $this->denyAccessUnlessGranted('ROLE_STAFF');
         $product = $em->getRepository(Product::class)->find($id);
 
         $em->remove($product);

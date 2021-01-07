@@ -39,7 +39,7 @@ class CategoryController extends AbstractController
     {
 
         // REstrictions admin
-      $this->denyAccessUnlessGranted('ROLE_ADMIN');
+      $this->denyAccessUnlessGranted('ROLE_STAFF');
     //   dd($this->getUser()->getRoles());
         $category = new Category;
         $form=  $this->createForm(CategoryFormType::class, $category);
@@ -49,7 +49,7 @@ class CategoryController extends AbstractController
             $em->persist($category);
             $em->flush();
             $this->addFlash('success', 'Catégorie bien ajoutée ;)');
-            return $this->redirectToRoute('categories');
+            return $this->redirectToRoute('admin_categories');
         }
         
         return $this->render('category/add.html.twig', ['form' => $form->createView()
@@ -94,7 +94,7 @@ class CategoryController extends AbstractController
             $em->flush();
             $this->addFlash('success', 'Bien enregistré ;)');
             // var_dump($message);
-            return $this->redirectToRoute('categories');
+            return $this->redirectToRoute('admin_categories');
         }
         
         return $this->render('category/edit.html.twig', ['form' => $form->createView()

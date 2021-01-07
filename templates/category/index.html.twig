@@ -23,7 +23,7 @@
             <tr>
                 <th>Nom</th>
                 <th>Description</th>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_STAFF') %}
                 <th>Catégorie</th>
                 <th>Editer</th>
                 <th>Effacer</th>
@@ -34,17 +34,18 @@
             <tr>
                 <td> {{category.name}}</td>
                 <td> {{category.description}}</td>
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_STAFF') %}
 
                 <td> {{category.slug}}</td>
 
-                <td><a href="{{path('editCategorie', {'id':category.id})}}"><img style="width: 10%;" src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
-                <td><a href="{{path('deleteCategorie', {'id':category.id})}}">Supprimer Catégorie</a></td>
+                <td><a href="{{path('admin_editCategorie', {'id':category.id})}}"><img style="width: 18%;"
+                            src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
+                <td><a href="{{path('admin_deleteCategorie', {'id':category.id})}}"><img style="width: 9%;" src="https://icon-library.com/images/delete-icon-image/delete-icon-image-15.jpg" alt=""></a></td>
 
                 <td>Voir tous les produits de <a
-                        href="{{path('showAllProducts', {'id':category.id})}}">{{category.name}}</a></td>
+                        href="{{path('admin_showAllProducts', {'id':category.id})}}">{{category.name}}</a></td>
                 {% endif %}
-          
+
             </tr>
             <br />
             {% endfor %}

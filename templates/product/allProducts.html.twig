@@ -25,7 +25,7 @@
             <th>Prix</th>
             <th>Catégorie</th>
             <th style="text-align: center;">Image</th>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_STAFF') %}
             <th>Slug</th>
             <th>Editer</th>
             <th>Supprimer le produit</th>
@@ -37,11 +37,13 @@
             <td> {{product.category}}</td>
             <td> <img class="rounded mx-auto d-block" src="images/{{ product.image }}" style="max-width: 15%"
                     alt="Card image cap"></td>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_STAFF') %}
+
             <td> {{product.slug}}</td>
-            <td><a href="{{path('editProduct', {'id':product.id})}}"><img style="width: 10%;" src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
-            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><button type="button"
-                        class="btn btn-danger">X</button></a></td>
+            <td><a href="{{path('editProduct', {'id':product.id})}}"><img style="width: 25%;"
+                        src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
+            <td><a href="{{path('deleteProduct', {'id':product.id})}}"><img style="width: 13%;"
+                src="https://icon-library.com/images/delete-icon-image/delete-icon-image-15.jpg" alt=""></a></td>
             {% endif %}
         </tr>
         <br />

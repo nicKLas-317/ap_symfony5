@@ -39,10 +39,10 @@
                 {% else %}
                     <td>User</td>
                 {% endif %} 
-                <td style="text-align: center;"><a href="{{path('editUser', {'id':user.id})}}"><img style="width: 10%;"
+                <td style="text-align: center;"><a href="{{path('editUser', {'id':user.id})}}"><img style="width: 15%;"
                             src="https://static.thenounproject.com/png/3082134-200.png" alt=""></a></td>
-                <td style="text-align: center;"><a href="{{path('deleteUser', {'id':user.id})}}"><button type="button"
-                            class="btn btn-danger">X</button></a></td>
+                <td style="text-align: center;"><a href="{{path('deleteUser', {'id':user.id})}}"><img style="width: 6%;"
+                    src="https://icon-library.com/images/delete-icon-image/delete-icon-image-15.jpg" alt=""></a></td>
             </tr>
             <br />
             {% endfor %}
