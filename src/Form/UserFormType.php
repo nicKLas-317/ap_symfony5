@@ -26,6 +26,7 @@ class UserFormType extends AbstractType
                 'choices' =>
                 array(
                     'ADMIN' => 'ROLE_ADMIN',
+                    'STAFF' => 'ROLE_STAFF',
                     'USER' => 'ROLE_USER'
                 ),
                 'multiple' => true,

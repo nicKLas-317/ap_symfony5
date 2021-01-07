@@ -34,6 +34,8 @@
                 <td> {{user.email}}</td>
                 {% if 'ROLE_ADMIN' in user.roles  %}
                     <td>Admin</td>
+                {% elseif 'ROLE_STAFF' in user.roles %}
+                    <td>Staff</td>
                 {% else %}
                     <td>User</td>
                 {% endif %} 
