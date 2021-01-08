@@ -10,15 +10,15 @@
 
    <div class="row">
       {% for item in products %}
-      <div class="col-4" style="border:1px solid red">
+      <div class="col-6" style="border:1px dashed red">
          <p>{{item.name}} ({{item.price}}€)</p>
 
-         <img class="rounded mx-auto d-block" src="images/{{ item.image }}" style="max-width: 40%" alt="{{item.name}}">
+         <img class="rounded mx-auto d-block" src="images/{{ item.image }}" style="max-width: 40%; margin-bottom: 20px" alt="{{item.name}}">
 
-         <a class="btn btn-success" href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">Détails</a>
-            <a class="btn btn-primary"
-            href="{{path('addToCart', {'id':item.id}) }}">Ajouter au panier</a>
-         
+        <div style="text-align: center;"> <a class="btn btn-success" href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">Détails</a>
+         <a class="btn btn-primary"
+         href="{{path('addToCart', {'id':item.id}) }}">Ajouter au panier</a>
+      </div>
       </div>
       {% endfor %}
    </div>

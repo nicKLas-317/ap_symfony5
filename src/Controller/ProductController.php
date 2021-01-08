@@ -46,7 +46,7 @@ class ProductController extends AbstractController
     }
 
 /**
-     * @Route("/product/add",name="ajoutProduct")
+     * @Route("/admin/product/add",name="ajoutProduct")
      */
     public function addProduct(KernelInterface $appKernel, Request $request, EntityManagerInterface $em, SluggerInterface $slugger): Response
     {
