@@ -27,7 +27,8 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="{{path('ajoutProduct')}}">Ajout Produit</a>
           <a class="dropdown-item" href="{{path('admin_ajoutCategorie')}}">Ajout Catégorie</a>
-          {% if is_granted('ROLE_ADMIN') %}<a class="dropdown-item" href="{{path('userList')}}">Manage Users</a>{% endif %}
+          {% if is_granted('ROLE_ADMIN') %}<a class="dropdown-item" href="{{path('userList')}}">Manage
+            Users</a>{% endif %}
 
           {# <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#">Something else here</a>#}
@@ -41,14 +42,17 @@
     <div>
 
       <div class="mb-3">
-      
+
         {% if app.user %}
-        {{ app.user.email }} 
-        <button class="btn btn-success"><a style="color:black" href="{{ path('cart') }}">Panier</a></button>
-        <button class="btn btn-danger"><a style="color:black" href="{{ path('app_logout') }}">Déconnexion</a> </button>
-          
+        {{ app.user.email }}
+        <a style="color:black; margin-left: 15px;" href="{{ path('cart') }}"><img style="height: 45px;
+        width: 36px;" src="https://icon-library.com/images/my-cart-icon/my-cart-icon-19.jpg" alt=""></a>
+        <button class="btn btn-danger" style="margin-left: 15px;"><a style="color:black"
+            href="{{ path('app_logout') }}">Déconnexion</a> </button>
+
         {% else %}
-        Vous n'êtes pas connecté <button class="btn btn-primary"><a style="color:black" href="{{ path('app_login') }}">Connexion</a></button>
+        Vous n'êtes pas connecté <button class="btn btn-primary"><a style="color:black"
+            href="{{ path('app_login') }}">Connexion</a></button>
         {% endif %}
       </div>
 
