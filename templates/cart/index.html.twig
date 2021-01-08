@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <button onClick="window.history.back();" class="btn btn-warning" type="button">Retour</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>Voici le contenu de votre panier</h2>
+    </div>
+    <div class="row">
+        {% for cart in carts %}
+            {{cart.name}}
+        {% endfor %}
+       
+        <!-- <div class="card" style="width: 18rem;">
+            <img class="rounded mx-auto d-block" src="../images/" style="max-width: 40%" alt="">
+            <div class="card-body">
+              <h5 class="card-title"> </h5>
+              <p class="card-text"></p>
+            </div>
+        </div> -->
+    </div>
+    <div class="row">
+        <a href="#">Commander</a>
+    </div>
+
+</div>
+{% endblock %}

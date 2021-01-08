@@ -15,8 +15,10 @@
 
          <img class="rounded mx-auto d-block" src="images/{{ item.image }}" style="max-width: 40%" alt="{{item.name}}">
 
-         <p> <a href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">disponible ici !</a>
-         </p>
+         <a class="btn btn-success" href="{{path('detailProduit', {'id':item.id, 'slug':item.slug}) }}">Détails</a>
+            <a class="btn btn-primary"
+            href="{{path('addToCart', {'id':item.id}) }}">Ajouter au panier</a>
+         
       </div>
       {% endfor %}
    </div>

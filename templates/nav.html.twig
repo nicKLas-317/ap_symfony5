@@ -41,12 +41,14 @@
     <div>
 
       <div class="mb-3">
+      
         {% if app.user %}
-        {{ app.user.email }} <button class="btn btn-danger"><a style="color:black"
-            href="{{ path('app_logout') }}">Déconnexion</a> </button>
+        {{ app.user.email }} 
+        <button class="btn btn-success"><a style="color:black" href="{{ path('cart') }}">Panier</a></button>
+        <button class="btn btn-danger"><a style="color:black" href="{{ path('app_logout') }}">Déconnexion</a> </button>
+          
         {% else %}
-        Vous n'êtes pas connecté <button class="btn btn-primary"><a style="color:black"
-            href="{{ path('app_login') }}">Connexion</a></button>
+        Vous n'êtes pas connecté <button class="btn btn-primary"><a style="color:black" href="{{ path('app_login') }}">Connexion</a></button>
         {% endif %}
       </div>
 
